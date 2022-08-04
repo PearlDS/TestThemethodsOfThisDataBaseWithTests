@@ -1,4 +1,4 @@
-import com.google.common.hash.Hashing;
+
 
 import java.nio.charset.StandardCharsets;
 
@@ -21,7 +21,7 @@ public class UserService {
     public User login(String userName, String passWord){
 
         User user = userRepository.findOneById(userName);
-        String hashedPassWord = passWord;//needs to be hashes first
+        String hashedPassWord = scramblePassword(passWord);
         if (hashedPassWord.equals(user.getPassWordHashed())){
             return user;
         }
@@ -30,16 +30,26 @@ public class UserService {
     }
 
 
-    public User createPassWordWithHasher(String userName, String passWord){
+    public User createUserWithHasher(String userName, String passWord){
 
-        String hashedPassWord = passWord;//needs to be hashed first
-        userRepository.createOne(new User(userName,passWord));
+        String hashedPassWord = scramblePassword(passWord);
+        userRepository.createOne(new User(userName,hashedPassWord));
         return userRepository.findOneById(userName);
     }
 
     public String scramblePassword(String password){
 
-        return null;
+        String scrambledPassword= "";
+
+        for (int pos = 0; pos<password.length(); pos++){
+            char currentLetter = password.charAt(pos);
+            char newLetter = ++currentLetter;
+            scrambledPassword = scrambledPassword.concat(Character.toString(newLetter));
+        }
+
+
+
+        return scrambledPassword;
 
     }
 
