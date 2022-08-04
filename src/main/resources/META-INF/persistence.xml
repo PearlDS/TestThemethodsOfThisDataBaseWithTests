@@ -21,15 +21,6 @@
 
 
 
-    <persistence-unit name="jeremyDatabase">
-        <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://moktok.intecbrussel.org:33062/JAVAJANJeremy"/>
-            <property name="javax.persistence.jdbc.user" value="JAVAJANJeremy"/>
-            <property name="javax.persistence.jdbc.password" value="Jeremy2022"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
-        </properties>
-    </persistence-unit>
 
 
     
