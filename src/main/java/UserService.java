@@ -11,6 +11,9 @@ public class UserService {
        
     }
 
+    public UserService() {
+    }
+
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -19,9 +22,7 @@ public class UserService {
     public User login(String userName, String passWord){
 
         User user = userRepository.findOneById(userName);
-        String hashedPassWord = Hashing.sha256()
-                .hashString(passWord, StandardCharsets.UTF_8)
-                .toString();
+        String hashedPassWord = passWord;//needs to be hashes first
         if (hashedPassWord.equals(user.getPassWordHashed())){
             return user;
         }
@@ -32,11 +33,15 @@ public class UserService {
 
     public User createPassWordWithHasher(String userName, String passWord){
 
-        String hashedPassWord = Hashing.sha256()
-                .hashString(passWord, StandardCharsets.UTF_8)
-                .toString();
+        String hashedPassWord = passWord;//needs to be hashed first
         userRepository.createOne(new User(userName,passWord));
         return userRepository.findOneById(userName);
+    }
+
+    public String scramblePassword(String password){
+
+        return null;
+
     }
 
 
